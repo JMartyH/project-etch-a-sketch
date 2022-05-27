@@ -1,0 +1,21 @@
+body{
+    display: flex;
+    margin: 0;
+    justify-content: center;
+    padding-top: 150px;
+}
+
+.main-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    max-width: 960px;
+}
+
+.grid{
+    display: flex;
+    flex-wrap: wrap;
+    /* width: calc(960px / (sqrt()));
+    height: calc(960px / 16); */
+
+}
