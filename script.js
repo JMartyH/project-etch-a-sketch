@@ -1,5 +1,3 @@
-
-
 function initialGrid() {
 
     const mainContainer = document.querySelector('.main-container');
@@ -53,7 +51,7 @@ function drawGrid(size) {
             nameOfGrid = document.createElement('div');
             nameOfGrid.setAttribute('class', 'grid');
             nameOfGrid.setAttribute('style',
-                'width: 60px; height: 60px;'
+                `width: ${960 / size}px; height: ${960 / size}px;`
             );
             mainContainer.appendChild(nameOfGrid);
 
@@ -63,20 +61,29 @@ function drawGrid(size) {
 
 }
 
+function addColor(e) {
+    e.target.classList.add('color');
+}
+
+function addListenerToElement() {
+    const grids = document.getElementsByClassName('grid')
+
+    for (let i = 0; i < grids.length; i++) {
+        grids[i].addEventListener('mouseover', addColor);
+    }
+    return;
+}
 
 initialGrid();
-const grids = document.querySelector('.main-container').childNodes;
-console.log(grids);
-console.log(grids.length);
-
+addListenerToElement()
 const customGridButton = document.querySelector('.btn-container');
 customGridButton.addEventListener('click', () => {
+
     clearGrid();
     drawGrid(getGridSize());
+    addListenerToElement()
 
-    //location.reload();
 });
-
 
 
 

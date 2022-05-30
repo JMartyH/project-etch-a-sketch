@@ -22,6 +22,10 @@ body{
 
 }
 
+.color{
+    background-color: blue;
+}
+
 .wrapper{
     display: flex;
     flex-direction: column  ;
