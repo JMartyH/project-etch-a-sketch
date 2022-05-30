@@ -1,1 +1,2 @@
 # project-etch-a-sketch
+This web page is an Etch-a-Sketch project that allows the user to draw similar to an Etch-a-Sketch. This is completed following instruction from theodinproject and is the culmination of almost all the lessons and skills that is taught from the very beginning up to now.
