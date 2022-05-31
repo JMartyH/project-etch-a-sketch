@@ -1,4 +1,3 @@
-
 const DEFAULT_GRID_SIZE = 16;
 const DEFAULT_CONTAINER_SIZE = 480;
 const ERROR_MESSAGE = 'Please enter a valid number';
@@ -8,6 +7,9 @@ const gridSize = document.querySelector('#grid-size');
 const sliderValue = document.querySelector('#slider-value');
 const slider = document.querySelector('.slider-container');
 const buttons = document.getElementsByClassName('button')
+const classicBtn = document.getElementById('classic-mode');
+const rgbBtn = document.getElementById('rgb-mode');
+const eraserBtn = document.getElementById('eraser-mode');
 
 sliderValue.textContent = gridSize.value;
 
@@ -27,11 +29,6 @@ document.body.onmousemove = (e) => {
     }
     return true;
 }
-
-
-
-
-
 
 function initialGrid() {
     //create a grid layout 16x16
@@ -122,10 +119,21 @@ function addListenerToElement() {
 function addListenerToButtons() {
 
     for (let i = 0; i < buttons.length; i++) {
-
         buttons[i].addEventListener('click', (e) => {
             currentMode = e.target.id;
-            e.target.classList.add('clicked');
+            if (currentMode === 'classic-mode') {
+                classicBtn.classList.add('clicked');
+                rgbBtn.classList.remove('clicked');
+                eraserBtn.classList.remove('clicked');
+            } else if (currentMode === 'rgb-mode') {
+                rgbBtn.classList.add('clicked');
+                classicBtn.classList.remove('clicked');
+                eraserBtn.classList.remove('clicked');
+            } else if (currentMode === 'eraser-mode') {
+                eraserBtn.classList.add('clicked');
+                rgbBtn.classList.remove('clicked');
+                classicBtn.classList.remove('clicked');
+            }
         });
 
     }
