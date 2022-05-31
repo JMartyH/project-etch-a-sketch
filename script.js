@@ -7,18 +7,20 @@ const grids = document.getElementsByClassName('grid')
 const gridSize = document.querySelector('#grid-size');
 const sliderValue = document.querySelector('#slider-value');
 const slider = document.querySelector('.slider-container');
-const buttons = document.querySelectorAll('button');
+const buttons = document.getElementsByClassName('button')
 
 sliderValue.textContent = gridSize.value;
 
 let mouseDown = false
 document.body.onmousedown = (e) => {
+    e.preventDefault();
     mouseDown = true;
-    e.preventDefault(); 
+
 };
 document.body.onmouseup = (e) => {
+
     mouseDown = false;
-    e.preventDefault();  
+
 };
 
 const defaultMode = 'classic-mode';
@@ -48,7 +50,6 @@ function initialGrid() {
 }
 
 function getGridSize() {
-
 
     sliderValue.textContent = gridSize.value;
     return gridSize.value;
@@ -83,44 +84,66 @@ function drawGrid(size) {
 
 }
 
+function randomRGBNumber() {
+    return Math.floor(Math.random() * (255 - 1 + 1) + 1);
+}
+
 function addColor(e) {
-    console.log(mouseDown);
-    if (e.type === 'mouseover' && !mouseDown){
-        return
-    }else{
-        e.target.classList.add('color');
+    if (e.type === 'mouseover' && !mouseDown) {
+        e.preventDefault();
+    } else if (currentMode === 'classic-mode') {
+        e.target.   setAttribute('style',
+            `width: ${(DEFAULT_CONTAINER_SIZE / getGridSize()).toFixed(2)}px; height: ${(DEFAULT_CONTAINER_SIZE / getGridSize()).toFixed(2)}px;`
+        );
+            e.target.classList.add('color');
+    } else if (currentMode === 'rgb-mode') {
+        e.target.setAttribute("style", e.target.getAttribute('style') +
+            `background-color:rgb(${randomRGBNumber()}, ${randomRGBNumber()}, ${randomRGBNumber()});`);
+    } else if (currentMode === 'eraser-mode') {
+        e.target.setAttribute('class', 'grid');
     }
-    
+
 }
 
 function addListenerToElement() {
 
     for (let i = 0; i < grids.length; i++) {
-
         grids[i].addEventListener('mouseover', addColor);
         grids[i].addEventListener('mousedown', addColor);
     }
     return;
 }
 
-function addListenerToButtons(){
-    for(let i = 0; i < buttons.length; i++){
-        buttons[i].addEventListener('click', (e)=>{
+function addListenerToButtons() {
+    for (let i = 0; i < buttons.length; i++) {
+
+        buttons[i].addEventListener('click', (e) => {
             currentMode = e.target.id;
         });
     }
 }
 
+
+
+
+
+
 initialGrid();
 addListenerToElement();
 addListenerToButtons();
 slider.addEventListener('input', () => {
-
     clearGrid();
     drawGrid(getGridSize());
     addListenerToElement();
     addListenerToButtons();
+});
 
+const resetBtn = document.getElementById('reset-btn');
+resetBtn.addEventListener('click', () => {
+    clearGrid();
+    drawGrid(getGridSize());
+    addListenerToElement();
+    addListenerToButtons();
 });
 
 
