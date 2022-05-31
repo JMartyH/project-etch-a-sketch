@@ -6,10 +6,23 @@ const mainContainer = document.querySelector('.main-container');
 const grids = document.getElementsByClassName('grid')
 const gridSize = document.querySelector('#grid-size');
 const sliderValue = document.querySelector('#slider-value');
-sliderValue.textContent = gridSize.value;   
+const slider = document.querySelector('.slider-container');
+const buttons = document.querySelectorAll('button');
+
+sliderValue.textContent = gridSize.value;
+
 let mouseDown = false
-document.body.onmousedown = () => (mouseDown = true)
-document.body.onmouseup = () => (mouseDown = false)
+document.body.onmousedown = (e) => {
+    mouseDown = true;
+    e.preventDefault(); 
+};
+document.body.onmouseup = (e) => {
+    mouseDown = false;
+    e.preventDefault();  
+};
+
+const defaultMode = 'classic-mode';
+let currentMode = defaultMode;
 
 
 
@@ -36,8 +49,8 @@ function initialGrid() {
 
 function getGridSize() {
 
-    
-    sliderValue.textContent = gridSize.value;   
+
+    sliderValue.textContent = gridSize.value;
     return gridSize.value;
 
 }
@@ -48,6 +61,7 @@ function clearGrid() {
         mainContainer.firstElementChild.remove();
     }
 }
+
 
 
 function drawGrid(size) {
@@ -70,28 +84,42 @@ function drawGrid(size) {
 }
 
 function addColor(e) {
-    if (e.type === 'mouseover' && !mouseDown) return
-    e.target.classList.add('color');
+    console.log(mouseDown);
+    if (e.type === 'mouseover' && !mouseDown){
+        return
+    }else{
+        e.target.classList.add('color');
+    }
+    
 }
 
 function addListenerToElement() {
 
     for (let i = 0; i < grids.length; i++) {
-        
-        grids[i].addEventListener('mousedown', addColor);
+
         grids[i].addEventListener('mouseover', addColor);
+        grids[i].addEventListener('mousedown', addColor);
     }
     return;
 }
 
+function addListenerToButtons(){
+    for(let i = 0; i < buttons.length; i++){
+        buttons[i].addEventListener('click', (e)=>{
+            currentMode = e.target.id;
+        });
+    }
+}
+
 initialGrid();
-addListenerToElement()
-const customGridButton = document.querySelector('.btn-container');
-customGridButton.addEventListener('click', () => {
+addListenerToElement();
+addListenerToButtons();
+slider.addEventListener('input', () => {
 
     clearGrid();
     drawGrid(getGridSize());
-    addListenerToElement()
+    addListenerToElement();
+    addListenerToButtons();
 
 });
 
