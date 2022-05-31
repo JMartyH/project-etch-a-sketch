@@ -11,13 +11,17 @@ const buttons = document.getElementsByClassName('button')
 const classicBtn = document.getElementById('classic-mode');
 const rgbBtn = document.getElementById('rgb-mode');
 const eraserBtn = document.getElementById('eraser-mode');
+const colorPicker = document.getElementById('colorPicker');
 
 sliderValue.textContent = gridSize.value;
 sliderValue2.textContent = gridSize.value;
 
 const defaultMode = 'classic-mode';
 let currentMode = defaultMode;
+const defaultColor = '#000000';
+let currentColor = defaultColor;
 let mouseDown = false
+
 
 document.body.onmousemove = (e) => {
     document.body.onmousedown = (e) => {
@@ -31,6 +35,8 @@ document.body.onmousemove = (e) => {
     }
     return true;
 }
+
+colorPicker.oninput = (e) => setCurrentColor(e.target.value);
 
 function initialGrid() {
     //create a grid layout 16x16
@@ -88,12 +94,18 @@ function randomRGBNumber() {
     return Math.floor(Math.random() * (255 - 1 + 1) + 1);
 }
 
+function setCurrentColor(newColor) {
+    currentColor = newColor;
+}
+
 function addColor(e) {
+    console.log(currentColor);
     if (e.type === 'mouseover' && !mouseDown) {
         e.preventDefault();
     } else if (currentMode === 'classic-mode') {
         e.target.setAttribute('style',
-            `width: ${(DEFAULT_CONTAINER_SIZE / getGridSize()).toFixed(2)}px; height: ${(DEFAULT_CONTAINER_SIZE / getGridSize()).toFixed(2)}px;`
+            `width: ${(DEFAULT_CONTAINER_SIZE / getGridSize()).toFixed(2)}px; height: ${(DEFAULT_CONTAINER_SIZE / getGridSize()).toFixed(2)}px;
+            background-color: ${currentColor};`
         );
         e.target.classList.add('color');
     } else if (currentMode === 'rgb-mode') {
@@ -146,12 +158,17 @@ function addListenerToButtons() {
 initialGrid();
 addListenerToElement();
 addListenerToButtons();
-
+if (currentMode === 'classic-mode') {
+    classicBtn.classList.add('clicked');
+    rgbBtn.classList.remove('clicked');
+    eraserBtn.classList.remove('clicked');
+}
 slider.addEventListener('input', (e) => {
     clearGrid();
     drawGrid(getGridSize());
     addListenerToElement();
     addListenerToButtons();
+
 });
 
 const resetBtn = document.getElementById('reset-btn');
