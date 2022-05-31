@@ -12,16 +12,43 @@ const buttons = document.getElementsByClassName('button')
 sliderValue.textContent = gridSize.value;
 
 let mouseDown = false
-document.body.onmousedown = (e) => {
-    e.preventDefault();
-    mouseDown = true;
+// document.body.onmousedown = (e) => {
+//     console.log(e.defaultPrevented);
+//     //e.preventDefault();
+//     mouseDown = true;
+//     console.log(mouseDown);
+//     console.log(e.defaultPrevented);
 
-};
-document.body.onmouseup = (e) => {
+// };
 
-    mouseDown = false;
+// document.body.onmouseup = (e) => {
+//     mouseDown = false;    
+//     document.body.onmousedown = (e) => {
+//         return true;
+//     };
+//     console.log(e.defaultPrevented);
+// };
 
-};
+    
+    document.body.onmousemove = (e) => {
+
+        document.body.onmousedown = (e) => {
+            mouseDown = true;
+            
+            console.log('mousedown')
+            document.body.onmouseup = (e) => {
+                e.preventDefault()
+                mouseDown = false;
+                console.log('mouseup')
+                return true;
+            }
+            return true;
+        }
+        return true;
+    }
+
+
+
 
 const defaultMode = 'classic-mode';
 let currentMode = defaultMode;
@@ -92,20 +119,20 @@ function addColor(e) {
     if (e.type === 'mouseover' && !mouseDown) {
         e.preventDefault();
     } else if (currentMode === 'classic-mode') {
-        e.target.   setAttribute('style',
+        e.target.setAttribute('style',
             `width: ${(DEFAULT_CONTAINER_SIZE / getGridSize()).toFixed(2)}px; height: ${(DEFAULT_CONTAINER_SIZE / getGridSize()).toFixed(2)}px;`
         );
-            e.target.classList.add('color');
+        e.target.classList.add('color');
     } else if (currentMode === 'rgb-mode') {
         e.target.setAttribute("style", e.target.getAttribute('style') +
             `background-color:rgb(${randomRGBNumber()}, ${randomRGBNumber()}, ${randomRGBNumber()});`);
     } else if (currentMode === 'eraser-mode') {
         e.target.removeAttribute('style');
         e.target.setAttribute('class', 'grid');
-        e.target.   setAttribute('style',
-        `width: ${(DEFAULT_CONTAINER_SIZE / getGridSize()).toFixed(2)}px; height: ${(DEFAULT_CONTAINER_SIZE / getGridSize()).toFixed(2)}px;`
-    );
-        
+        e.target.setAttribute('style',
+            `width: ${(DEFAULT_CONTAINER_SIZE / getGridSize()).toFixed(2)}px; height: ${(DEFAULT_CONTAINER_SIZE / getGridSize()).toFixed(2)}px;`
+        );
+
     }
 
 }
@@ -120,11 +147,14 @@ function addListenerToElement() {
 }
 
 function addListenerToButtons() {
+    
     for (let i = 0; i < buttons.length; i++) {
-
+        
         buttons[i].addEventListener('click', (e) => {
             currentMode = e.target.id;
+            e.target.classList.add('clicked');
         });
+        
     }
 }
 
@@ -133,7 +163,7 @@ initialGrid();
 addListenerToElement();
 addListenerToButtons();
 
-slider.addEventListener('input', () => {
+slider.addEventListener('input', (e) => {
     clearGrid();
     drawGrid(getGridSize());
     addListenerToElement();

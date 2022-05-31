@@ -1,3 +1,5 @@
+
+
 body {
     display: flex;
     flex-direction: column;
@@ -23,6 +25,7 @@ h1 {
 }
 
 .main-container {
+    user-select: none;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -73,4 +76,9 @@ h1 {
 .reset-button{
     border-radius: 10px;
     padding: 0px 30px 0px 30px;
+}
+
+.clicked{
+    background-color: black; 
+    color: white;
 }
