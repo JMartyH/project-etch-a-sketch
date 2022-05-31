@@ -5,6 +5,7 @@ const mainContainer = document.querySelector('.main-container');
 const grids = document.getElementsByClassName('grid')
 const gridSize = document.querySelector('#grid-size');
 const sliderValue = document.querySelector('#slider-value');
+const sliderValue2 = document.querySelector('#slider-value2');
 const slider = document.querySelector('.slider-container');
 const buttons = document.getElementsByClassName('button')
 const classicBtn = document.getElementById('classic-mode');
@@ -12,6 +13,7 @@ const rgbBtn = document.getElementById('rgb-mode');
 const eraserBtn = document.getElementById('eraser-mode');
 
 sliderValue.textContent = gridSize.value;
+sliderValue2.textContent = gridSize.value;
 
 const defaultMode = 'classic-mode';
 let currentMode = defaultMode;
@@ -51,6 +53,7 @@ function initialGrid() {
 function getGridSize() {
 
     sliderValue.textContent = gridSize.value;
+    sliderValue2.textContent = gridSize.value;
     return gridSize.value;
 
 }

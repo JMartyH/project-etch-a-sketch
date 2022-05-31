@@ -82,3 +82,7 @@ h1 {
     background-color: black; 
     color: white;
 }
+
+p{
+    font-weight: bold;
+}
