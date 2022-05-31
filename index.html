@@ -9,13 +9,18 @@
 </head>
 
 <body>
-    <h1>Etch-a-Sketch</h1>
-    <div class="wrapper">
-    <div class="btn-container">
-        <button name="get-grid-size-btn" id="grid-size">Change gride size</button>
+    <div class="header">
+        <h1>Etch-a-Sketch</h1>
     </div>
-    <div class="main-container"></div>
-</div>
+    <div class="wrapper">
+        <div class="btn-container">
+            <input type="range" min="1" max="100" value="16" class="slider" id="grid-size">
+            <p>Value: <span id="slider-value"></span></p>
+
+            <!-- <button name="get-grid-size-btn" id="grid-size">Change gride size</button> -->
+        </div>
+        <div class="main-container"></div>
+    </div>
 
 </body>
 

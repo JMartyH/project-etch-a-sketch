@@ -1,9 +1,12 @@
 
 const DEFAULT_GRID_SIZE = 16;
+const DEFAULT_CONTAINER_SIZE = 480;
 const ERROR_MESSAGE = 'Please enter a valid number';
 const mainContainer = document.querySelector('.main-container');
 const grids = document.getElementsByClassName('grid')
-
+const gridSize = document.querySelector('#grid-size');
+const sliderValue = document.querySelector('#slider-value');
+sliderValue.textContent = gridSize.value;   
 let mouseDown = false
 document.body.onmousedown = () => (mouseDown = true)
 document.body.onmouseup = () => (mouseDown = false)
@@ -21,7 +24,7 @@ function initialGrid() {
             nameOfGrid = document.createElement('div');
             nameOfGrid.setAttribute('class', 'grid');
             nameOfGrid.setAttribute('style',
-                'width: 60px; height: 60px;'
+                'width: 30px; height: 30px;'
             );
             mainContainer.appendChild(nameOfGrid);
 
@@ -33,13 +36,9 @@ function initialGrid() {
 
 function getGridSize() {
 
-    let size = prompt('Please enter the new grid size(limit is 100):');
-    if ((size == null) || (size == '') || (isNaN(size))) {
-        alert(ERROR_MESSAGE);
-    } else {
-        console.log(size);
-        return size
-    }
+    
+    sliderValue.textContent = gridSize.value;   
+    return gridSize.value;
 
 }
 
@@ -60,7 +59,7 @@ function drawGrid(size) {
             nameOfGrid = document.createElement('div');
             nameOfGrid.setAttribute('class', 'grid');
             nameOfGrid.setAttribute('style',
-                `width: ${960 / size}px; height: ${960 / size}px;`
+                `width: ${(DEFAULT_CONTAINER_SIZE / size).toFixed(2)}px; height: ${(DEFAULT_CONTAINER_SIZE / size).toFixed(2)}px;`
             );
             mainContainer.appendChild(nameOfGrid);
 
