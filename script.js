@@ -11,54 +11,29 @@ const buttons = document.getElementsByClassName('button')
 
 sliderValue.textContent = gridSize.value;
 
+const defaultMode = 'classic-mode';
+let currentMode = defaultMode;
 let mouseDown = false
-// document.body.onmousedown = (e) => {
-//     console.log(e.defaultPrevented);
-//     //e.preventDefault();
-//     mouseDown = true;
-//     console.log(mouseDown);
-//     console.log(e.defaultPrevented);
 
-// };
-
-// document.body.onmouseup = (e) => {
-//     mouseDown = false;    
-//     document.body.onmousedown = (e) => {
-//         return true;
-//     };
-//     console.log(e.defaultPrevented);
-// };
-
-    
-    document.body.onmousemove = (e) => {
-
-        document.body.onmousedown = (e) => {
-            mouseDown = true;
-            
-            console.log('mousedown')
-            document.body.onmouseup = (e) => {
-                e.preventDefault()
-                mouseDown = false;
-                console.log('mouseup')
-                return true;
-            }
+document.body.onmousemove = (e) => {
+    document.body.onmousedown = (e) => {
+        mouseDown = true;
+        document.body.onmouseup = (e) => {
+            e.preventDefault()
+            mouseDown = false;
             return true;
         }
         return true;
     }
+    return true;
+}
 
 
 
-
-const defaultMode = 'classic-mode';
-let currentMode = defaultMode;
 
 
 
 function initialGrid() {
-
-
-
     //create a grid layout 16x16
     for (let j = 1; j <= DEFAULT_GRID_SIZE; j++) {
         for (let i = 1; i <= DEFAULT_GRID_SIZE; i++) {
@@ -89,8 +64,6 @@ function clearGrid() {
         mainContainer.firstElementChild.remove();
     }
 }
-
-
 
 function drawGrid(size) {
 
@@ -147,14 +120,14 @@ function addListenerToElement() {
 }
 
 function addListenerToButtons() {
-    
+
     for (let i = 0; i < buttons.length; i++) {
-        
+
         buttons[i].addEventListener('click', (e) => {
             currentMode = e.target.id;
             e.target.classList.add('clicked');
         });
-        
+
     }
 }
 
