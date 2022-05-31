@@ -1,10 +1,22 @@
+
+const DEFAULT_GRID_SIZE = 16;
+const ERROR_MESSAGE = 'Please enter a valid number';
+const mainContainer = document.querySelector('.main-container');
+const grids = document.getElementsByClassName('grid')
+
+let mouseDown = false
+document.body.onmousedown = () => (mouseDown = true)
+document.body.onmouseup = () => (mouseDown = false)
+
+
+
 function initialGrid() {
 
-    const mainContainer = document.querySelector('.main-container');
+
 
     //create a grid layout 16x16
-    for (let j = 1; j <= 16; j++) {
-        for (let i = 1; i <= 16; i++) {
+    for (let j = 1; j <= DEFAULT_GRID_SIZE; j++) {
+        for (let i = 1; i <= DEFAULT_GRID_SIZE; i++) {
             let nameOfGrid = `divGrad${i}`
             nameOfGrid = document.createElement('div');
             nameOfGrid.setAttribute('class', 'grid');
@@ -20,10 +32,10 @@ function initialGrid() {
 }
 
 function getGridSize() {
-    let msg = 'Please enter a valid number';
+
     let size = prompt('Please enter the new grid size(limit is 100):');
     if ((size == null) || (size == '') || (isNaN(size))) {
-        alert(msg);
+        alert(ERROR_MESSAGE);
     } else {
         console.log(size);
         return size
@@ -33,7 +45,6 @@ function getGridSize() {
 
 function clearGrid() {
 
-    const mainContainer = document.querySelector('.main-container');
     while (mainContainer.firstElementChild) {
         mainContainer.firstElementChild.remove();
     }
@@ -41,8 +52,6 @@ function clearGrid() {
 
 
 function drawGrid(size) {
-
-    const mainContainer = document.querySelector('.main-container');
 
     //create a grid layout based on size
     for (let j = 1; j <= size; j++) {
@@ -62,13 +71,15 @@ function drawGrid(size) {
 }
 
 function addColor(e) {
+    if (e.type === 'mouseover' && !mouseDown) return
     e.target.classList.add('color');
 }
 
 function addListenerToElement() {
-    const grids = document.getElementsByClassName('grid')
 
     for (let i = 0; i < grids.length; i++) {
+        
+        grids[i].addEventListener('mousedown', addColor);
         grids[i].addEventListener('mouseover', addColor);
     }
     return;
