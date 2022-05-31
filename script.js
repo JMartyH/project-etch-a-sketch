@@ -100,7 +100,12 @@ function addColor(e) {
         e.target.setAttribute("style", e.target.getAttribute('style') +
             `background-color:rgb(${randomRGBNumber()}, ${randomRGBNumber()}, ${randomRGBNumber()});`);
     } else if (currentMode === 'eraser-mode') {
+        e.target.removeAttribute('style');
         e.target.setAttribute('class', 'grid');
+        e.target.   setAttribute('style',
+        `width: ${(DEFAULT_CONTAINER_SIZE / getGridSize()).toFixed(2)}px; height: ${(DEFAULT_CONTAINER_SIZE / getGridSize()).toFixed(2)}px;`
+    );
+        
     }
 
 }
@@ -124,13 +129,10 @@ function addListenerToButtons() {
 }
 
 
-
-
-
-
 initialGrid();
 addListenerToElement();
 addListenerToButtons();
+
 slider.addEventListener('input', () => {
     clearGrid();
     drawGrid(getGridSize());
